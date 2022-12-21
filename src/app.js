@@ -2,7 +2,7 @@ const yargs = require("yargs");
 
 const { openSequelizeConnection } = require("./db/connection");
 
-const { createMovie } = require("./movie/function");
+const { createMovie, listMovies, updateMovies } = require("./movie/function");
 const Movie = require("./movie/table");
 
 async function app(yargsInput) {
@@ -17,13 +17,20 @@ async function app(yargsInput) {
       rating: yargsInput.rating,
     });
   } else if (yargsInput.read) {
-    // put code to list movies here
-    const movie = await Movie.findAll();
-    console.log(movie); //
+    // list movies
+    await listMovies();
   } else if (yargsInput.update) {
-    // put code to update actor field here
+    // update movie (fix this)
+    await updateMovies(yargsInput);
   } else if (yargsInput.delete) {
     // put code to delete movie here
+    await Movie.destroy({
+      where: {
+        title: yargsInput.title,
+      },
+    });
+    const movieList = await Movie.findAll();
+    console.log(movieList);
   } else {
     console.log("Unrecognises command");
   }
