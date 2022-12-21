@@ -19,49 +19,62 @@ exports.listMovies = async () => {
   }
 };
 
-// put the update and delete queries here
-exports.updateMovies = async (movieObj) => {
+exports.updateActor = async (movieObj) => {
+  //update actor field
   try {
-    // put code to update actor field here
-    if (movieObj.actor) {
-      await Movie.update(
-        { actor: movieObj.actor },
-        {
-          where: {
-            title: movieObj.title,
-          },
-        }
-      );
-    } else if (movieObj.title) {
-      await Movie.update(
-        { title: movieObj.title },
-        {
-          where: {
-            actor: movieObj.actor,
-          },
-        }
-      );
-    } else if (movieObj.director) {
-      await Movie.update(
-        { director: movieObj.director },
-        {
-          where: {
-            title: movieObj.title,
-          },
-        }
-      );
-    } else if (movieObj.rating) {
-      await Movie.update(
-        { rating: movieObj.rating },
-        {
-          where: {
-            title: movieObj.title,
-          },
-        }
-      );
-    } else {
-      console.log("Command not recognised");
-    }
+    await Movie.update(
+      { actor: movieObj.actor },
+      {
+        where: {
+          title: movieObj.title,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.updateDirector = async (movieObj) => {
+  //update actor field
+  try {
+    await Movie.update(
+      { director: movieObj.director },
+      {
+        where: {
+          title: movieObj.title,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.updateRating = async (movieObj) => {
+  //update rating field
+  try {
+    await Movie.update(
+      { rating: movieObj.rating },
+      {
+        where: {
+          title: movieObj.title,
+        },
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//delete queries here
+exports.deleteMovie = async (movieObj) => {
+  try {
+    await Movie.destroy({
+      where: {
+        title: movieObj.title,
+      },
+    });
     const movieList = await Movie.findAll();
     console.log(movieList);
   } catch (error) {

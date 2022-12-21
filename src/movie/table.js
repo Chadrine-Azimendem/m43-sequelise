@@ -5,6 +5,7 @@ const { openSequelizeConnection } = require("../db/connection");
 const Movie = openSequelizeConnection.define("Movie", {
   movieId: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     autoIncrement: true,
     unique: true,
     primaryKey: true,
