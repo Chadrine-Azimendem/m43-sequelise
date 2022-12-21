@@ -10,7 +10,6 @@ const {
   updateRating,
   deleteMovie,
 } = require("./movie/function");
-const Movie = require("./movie/table");
 
 async function app(yargsInput) {
   // check if db is created and create one if not

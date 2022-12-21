@@ -11,9 +11,18 @@ exports.createMovie = async (movieObj) => {
 
 exports.listMovies = async () => {
   try {
-    // tidy this up with a for loop.
     const output = await Movie.findAll();
-    console.log(output);
+    let moviesArr = [];
+    for (let i = 0; i < output.length; i++) {
+      moviesArr.push({
+        movieId: output[i].dataValues.movieId,
+        title: output[i].dataValues.title,
+        actor: output[i].dataValues.actor,
+        director: output[i].dataValues.director,
+        rating: output[i].dataValues.rating,
+      });
+    }
+    console.table(moviesArr);
   } catch (error) {
     console.log(error);
   }
